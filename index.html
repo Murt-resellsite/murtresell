@@ -1,0 +1,69 @@
+FIX NOTES — Round 2
+======================================
+
+1) BUSINESS TRACKER "KEEPS REFRESHING" ON A SECOND LAPTOP
+The app was syncing to the cloud by reloading the entire page every time new
+data came in from another device. On a second laptop, that meant every
+click could trigger a wave of "data changed, reload the page" — which is
+exactly what you were seeing.
+
+Fixed: the app now pulls in updated data and redraws the screen in place,
+without ever reloading the page. Cloud sync still works the same, it just
+no longer interrupts you.
+
+2) STREAMPACK — CANCELING AN ITEM NOW AUTO-RESTOCKS IT
+Mark something canceled in the packing list (live show or a past show) and
+it's automatically added back into your inventory, same name and size, no
+manual re-entry. If you un-cancel it, it comes back out of inventory again
+(since it's sold again). This works from both the packing modal during a
+live show and when viewing a past show's packing list.
+
+3) BUSINESS TRACKER — EMPLOYEE PAY NOW AUTOMATICALLY HITS EXPENSES
+Employee pay (from shows and from extra work hours you log on the
+Employees tab) now automatically counts toward this MONTH's expenses and
+profit — but it still does NOT get subtracted from each individual show's
+own profit number, exactly like before. You'll see it as its own
+"Employee Pay" line in the Expenses tab (auto-calculated, not manually
+editable there — go to the Employees tab to change the underlying hours or
+rates) and as its own bar in the Dashboard's expense breakdown. It updates
+immediately as you log new hours or add/edit a show.
+
+4) STREAMPACK — OPTIONAL PHOTO PER ITEM
+You can now attach a photo to any inventory item:
+- When adding a new item, there's an optional "Add Photo" button.
+- For existing items, open the inventory edit list (pencil/manage icon) —
+  each item now has a small thumbnail with "Photo"/"Change" and a way to
+  remove it.
+Photos are automatically resized down before saving so they don't bloat
+your synced data — this keeps cloud sync fast and reliable. If a photo
+ever looks a little compressed, that trade-off is intentional to keep
+things fast on shows with a lot of items.
+
+5) STREAMPACK — SWAP ANY SOLD ITEM DURING A LIVE SHOW
+While a show is active, each item in your Sold list now has a ⇄ button
+next to the ✕ undo button. Tap it to pick a different item/size to swap
+it for — the original automatically goes back into inventory and the new
+one is taken out, and the order number stays the same. Handy for "actually
+I want the other color" without undoing and re-selling from scratch.
+
+6) SWAP NOW ALSO WORKS ON PAST SHOWS (BEFORE PACKING)
+The ⇄ swap button isn't just for a live show anymore — it's also on:
+- The packing checklist right after a show ends
+- Any past show you open from Past Shows, as long as that line hasn't
+  been marked canceled
+Same behavior everywhere: swapping puts the original back in inventory,
+takes the new item out, and keeps that line's order number and packed
+status. Canceled lines don't get a swap button since there's nothing to
+fulfill anymore.
+
+7) SWAP BUTTON DID NOTHING — FIXED
+Two real bugs here, both fixed:
+- In the packing checklist and past-show views, the swap and cancel
+  buttons were crammed into a column too narrow for both, so the swap
+  button could be squeezed out or overlapped — clicks weren't landing on
+  it. That column is wider now and the buttons sit cleanly side by side.
+- When swap was opened from inside the past-show window, the swap picker
+  was actually opening — just visually stuck BEHIND that window, since
+  they shared the same layering priority. It's now forced to always
+  appear on top, so it's visible and clickable no matter where you open
+  it from.
