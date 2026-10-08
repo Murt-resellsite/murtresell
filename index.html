@@ -1090,9 +1090,10 @@ function addItem() {
   if (!name || !qty || qty < 1) { showToast('⚠️ Fill in name and quantity'); return; }
   const existing = inventory.find(i => i.name.toLowerCase() === name.toLowerCase() && i.size.toLowerCase() === (size||'').toLowerCase());
   if (existing) {
+    const newCost = averagedCost(existing.qty, existing.cost, qty, cost);
     existing.qty += qty;
     existing.category = category;
-    if (!isNaN(cost)) existing.cost = cost;
+    if (newCost !== undefined) existing.cost = newCost;
     if (category === 'fragrance' && inspiredBy) existing.inspiredBy = inspiredBy;
     if (category === 'fragrance' && brand) existing.brand = brand;
     if (newPhotoDataUrl) existing.photo = newPhotoDataUrl;
@@ -1407,6 +1408,22 @@ function confirmTagBrands() {
   showToast(`🏷️ ${tagged} tagged` + (skipped > 0 ? `, ${skipped} skipped` : ''));
 }
 
+// ── AVERAGE COST ON RESTOCK ──
+// When you add more of an item you already have, the cost becomes a weighted
+// average of what's on hand and what's coming in, instead of the new price
+// overwriting the old one. Example: 10 on hand @ $8 + 10 new @ $10 = $9.00.
+// If the item is sold out (0 on hand), the new cost simply takes over.
+function averagedCost(existingQty, existingCost, addQty, addCost) {
+  const hasExisting = existingCost !== undefined && existingCost !== null && existingCost !== '' && !isNaN(Number(existingCost));
+  const hasNew = addCost !== null && addCost !== undefined && !isNaN(addCost);
+  if (!hasNew) return hasExisting ? Number(existingCost) : undefined;
+  if (!hasExisting) return addCost;
+  const onHand = Math.max(0, Number(existingQty) || 0);
+  const total = onHand + addQty;
+  if (total <= 0) return addCost;
+  return Math.round(((onHand * Number(existingCost)) + (addQty * addCost)) / total * 100) / 100;
+}
+
 // ── BULK ADD ──
 let bulkAddCategory = 'apparel';
 
@@ -1449,6 +1466,18 @@ function parseBulkLines() {
   });
 }
 
+function bulkRowStatus(r) {
+  const existing = inventory.find(i => i.name.toLowerCase() === r.name.toLowerCase() && (i.size || '').toLowerCase() === (r.size || '').toLowerCase());
+  if (!existing) return '✅ new item';
+  const avg = averagedCost(existing.qty, existing.cost, r.qty, r.cost);
+  const hadCost = existing.cost !== undefined && existing.cost !== null && existing.cost !== '';
+  let note = `✅ adds to existing (${existing.qty} in stock)`;
+  if (avg !== undefined && r.cost !== null && hadCost) {
+    note += ` · cost $${Number(existing.cost).toFixed(2)} → <strong>$${avg.toFixed(2)}</strong>`;
+  }
+  return note;
+}
+
 function renderBulkPreview() {
   const wrap = document.getElementById('bulkPreviewWrap');
   const rows = parseBulkLines();
@@ -1479,7 +1508,7 @@ function renderBulkPreview() {
           <td style="padding:6px 8px;">${escHtml(r.size) || '—'}</td>
           <td style="padding:6px 8px;">${r.cost !== null ? '$' + r.cost.toFixed(2) : '—'}</td>
           ${bulkAddCategory === 'fragrance' ? `<td style="padding:6px 8px;">${escHtml(r.brand) || '—'}</td>` : ''}
-          <td style="padding:6px 8px;">${r.valid ? '✅' : '⚠️ needs name + qty'}</td>
+          <td style="padding:6px 8px;">${r.valid ? bulkRowStatus(r) : '⚠️ needs name + qty'}</td>
         </tr>`).join('')}
       </tbody>
     </table>
@@ -1493,9 +1522,11 @@ function confirmBulkAdd() {
   rows.forEach(r => {
     const existing = inventory.find(i => i.name.toLowerCase() === r.name.toLowerCase() && i.size.toLowerCase() === (r.size||'').toLowerCase());
     if (existing) {
+      // Must compute the average BEFORE adding the new quantity to the old.
+      const newCost = averagedCost(existing.qty, existing.cost, r.qty, r.cost);
       existing.qty += r.qty;
       existing.category = bulkAddCategory;
-      if (r.cost !== null) existing.cost = r.cost;
+      if (newCost !== undefined) existing.cost = newCost;
       if (bulkAddCategory === 'fragrance' && r.brand) existing.brand = r.brand;
       updatedCount++;
     } else {
