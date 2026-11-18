@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>StreamPack</title>
-<link rel="icon" type="image/png" href="icon-192.png">
+<!-- Home-screen app (iPhone: Safari → Share → Add to Home Screen) -->
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="StreamPack">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
@@ -606,6 +614,118 @@
   .bundle-photos img { object-fit: contain; background: #fff; }
   .swap-list-item .item-photo, .ie-photo-row .item-photo, .edit-photo-thumb { object-fit: contain; background: #fff; }
 
+  /* ===== PHONE LAYOUT (iPhone) — everything below only applies on phone-size screens ===== */
+  .m-tabbar, .m-install-banner { display: none; }
+  .m-more-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .m-more-item {
+    display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius-sm);
+    padding: 15px 16px; font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none;
+  }
+  .m-more-item span { font-size: 18px; width: 24px; text-align: center; }
+  .m-steps { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 6px 0 14px; }
+  .m-steps li {
+    display: flex; gap: 12px; align-items: flex-start; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 12px 14px; font-size: 14px; line-height: 1.45;
+  }
+  .m-step-n {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #000;
+    font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 13px;
+  }
+  .m-share-ico { display: inline-flex; vertical-align: -3px; color: #0a84ff; }
+  .m-install-note { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 4px; }
+
+  @media (max-width: 700px) {
+    /* iPhone zooms the page when you tap a box with small text; 16px stops that */
+    input, select, textarea { font-size: 16px !important; }
+    body { min-height: 100dvh; padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
+
+    /* top bar: logo · show status · Start/End Show */
+    header { padding: calc(10px + env(safe-area-inset-top)) 14px 10px; gap: 10px; }
+    .logo { font-size: 17px; flex-shrink: 0; }
+    .show-status { flex: 1; min-width: 0; font-size: 12.5px; gap: 6px; }
+    .show-status span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .hdr-actions { gap: 6px !important; flex-shrink: 0; }
+    .hdr-extra { display: none !important; }
+    #spSyncStatus { max-width: 18px; overflow: hidden; white-space: nowrap; }   /* just the 🟢 / 🔴 dot */
+    #showBtn { padding: 8px 12px; font-size: 13px; white-space: nowrap; }
+
+    /* one screen at a time, switched by the bottom bar */
+    .main { display: block; height: auto; }
+    .inventory-panel { padding: 14px 14px 20px; border-right: none; overflow: visible; }
+    .right-panel { display: none; overflow: visible; }
+    body.m-v-sold .inventory-panel, body.m-v-add .inventory-panel { display: none; }
+    body.m-v-sold .right-panel, body.m-v-add .right-panel { display: flex; }
+    body.m-v-sold .manage-panel { display: none; }
+    body.m-v-add .sold-panel { display: none; }
+    .sold-panel { padding: 16px 14px; border-bottom: none; overflow: visible; }
+    .manage-panel { padding: 16px 14px; border-top: none; background: none; }
+    body.m-v-add .manage-toggle { pointer-events: none; color: var(--text); font-size: 13px; margin-bottom: 14px; }
+    body.m-v-add .manage-toggle .chevron { display: none; }
+    body.m-v-add .add-form { display: flex; }
+    .add-form .btn { padding: 14px; font-size: 15px; }
+
+    /* inventory */
+    /* "INVENTORY · 150 SKUs" on one line, Bulk Add + Tag Brands as two buttons underneath */
+    .panel-header { flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .panel-header > div { display: contents !important; }
+    .panel-header #totalItems { flex: 1 1 60%; text-align: right; font-size: 12.5px !important; }
+    .panel-header .btn { flex: 1 1 40%; padding: 9px 10px; font-size: 13px; white-space: nowrap; }
+    .items-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .item-card { padding: 10px; }
+    .item-photo, .item-photo-placeholder, .bundle-photos { height: 150px; }
+    .item-name { font-size: 13px; }
+    .drag-handle, .sell-hint { display: none !important; }
+    .bb-label { display: none; }
+    .bundle-btn { padding: 5px 10px; font-size: 13px; }
+    .card-edit-btn { width: 36px; height: 30px; font-size: 13px; }
+    .stock-summary { padding: 10px 12px; margin-bottom: 12px; }
+    .stock-summary .st-num { font-size: 22px; }
+    .search-bar input { flex-basis: 100%; }
+    .stock-filter { width: 100%; }
+    .stock-filter button { flex: 1; padding: 0 6px; }
+    .brand-header { padding-top: 12px; }
+
+    .m-install-banner {
+      display: none; align-items: center; gap: 8px; background: var(--accent-dim); border: 1px solid var(--accent);
+      border-radius: var(--radius-sm); padding: 8px 8px 8px 12px; margin-bottom: 12px; font-size: 13px; font-weight: 600;
+    }
+    .m-install-banner.show { display: flex; }
+    .m-install-banner span { flex: 1; }
+    .m-banner-how { background: var(--accent); color: #000; border: none; border-radius: 6px; padding: 7px 14px; font-weight: 700; font-family: inherit; font-size: 13px; cursor: pointer; }
+    .m-banner-x { background: none; border: none; color: var(--text2); font-size: 15px; padding: 6px 8px; cursor: pointer; }
+
+    /* bottom bar */
+    .m-tabbar {
+      display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 4px 6px calc(4px + env(safe-area-inset-bottom));
+    }
+    .m-tab {
+      flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px;
+      background: none; border: none; color: var(--text2); font-family: 'Jost', sans-serif;
+      font-size: 11px; font-weight: 600; padding: 7px 0 6px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .m-tab .m-ico { font-size: 20px; line-height: 1.1; filter: grayscale(1); opacity: 0.65; }
+    .m-tab.active { color: var(--accent); }
+    .m-tab.active .m-ico { filter: none; opacity: 1; }
+    .m-badge {
+      position: absolute; top: 2px; left: 50%; margin-left: 7px; min-width: 18px; height: 18px; padding: 0 5px;
+      border-radius: 9px; background: var(--red); color: #fff; font-size: 10.5px; font-weight: 700;
+      display: none; align-items: center; justify-content: center;
+    }
+    .m-badge.show { display: flex; }
+
+    /* pop-ups open full-screen */
+    .modal-overlay { align-items: stretch; justify-content: stretch; }
+    .modal {
+      width: 100%; max-width: none !important; height: 100%; max-height: none; border-radius: 0; border: none;
+      padding: calc(16px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));
+    }
+    .modal-actions .btn { padding: 13px 10px; }
+    .toast { bottom: calc(78px + env(safe-area-inset-bottom)); max-width: calc(100% - 32px); text-align: center; }
+  }
+
   @media print {
     body { background: white; color: black; }
     header, .main { display: none; }
@@ -819,7 +939,7 @@
   .sold-item, .packing-row { background: #15110b; border-color: #2c2318; }
   .sold-num { background: rgba(217,179,110,0.12); color: var(--gold-hi); font-family: 'Jost', sans-serif; font-weight: 600; }
   .packing-num { font-family: 'Jost', sans-serif; font-weight: 600; color: var(--gold-hi); }
-  .pack-checkbox.checked, .bundle-check { color: var(--ink-on-gold); }
+  .pack-checkbox.checked, .m-step-n, .bundle-check { color: var(--ink-on-gold); }
 
   /* pop-ups */
   .modal-overlay { background: rgba(0,0,0,0.82); }
@@ -867,6 +987,23 @@
     .pk-n { background: none; color: #000; box-shadow: none; }
     .packing-name, .packing-size, .packing-num { color: #000; }
   }
+  /* phone */
+  @media (max-width: 700px) {
+    header { background: rgba(5,4,2,0.97); }
+    .logo { gap: 7px; }
+    .logo-mark { height: 42px; margin: -9px 0 -7px; }
+    .logo .logo-word { font-size: 17px; letter-spacing: 0.07em; }
+    .hdr-rule { bottom: -8px; }
+    .m-tabbar { background: rgba(8,6,3,0.97); border-top: 1px solid #2c2318; }
+    .m-tab.active { color: var(--gold-hi); }
+    .modal { border: none; border-radius: 0; background: #0e0b07; }
+    .brand-header { padding-top: 20px; }
+    .bundle-btn { padding: 5px 10px; }   /* bigger tap target on phones */
+    /* packing list: narrower side columns so names get the room */
+    .packing-row { grid-template-columns: 22px 66px minmax(0, 1fr) 56px; gap: 7px; padding: 10px; }
+    .packing-name { font-size: 14px; }
+    .pk-n { min-width: 36px; padding: 3px 6px; font-size: 13px; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .item-card.just-sold::after { animation: none; display: none; }
   }
@@ -894,12 +1031,12 @@
     <div class="dot" id="liveDot"></div>
     <span id="showLabel">No Show Active</span>
   </div>
-  <div style="display:flex;gap:8px;align-items:center;">
+  <div class="hdr-actions" style="display:flex;gap:8px;align-items:center;">
     <span id="spSyncStatus" style="font-size:11px;color:var(--text3);white-space:nowrap;"></span>
-    <a class="btn btn-ghost" href="business/" style="text-decoration:none;display:inline-flex;align-items:center;">💰 Business Tracker</a>
-    <button class="btn btn-ghost" onclick="logoutMurtApp()">🔒 Logout</button>
-    <button class="btn btn-ghost" onclick="openHistoryModal()">📁 Past Shows</button>
-    <button class="btn btn-ghost" id="backupBtn" onclick="openInvBackupModal()" title="Export or import a backup of your inventory">💾 Backup</button>
+    <a class="btn btn-ghost hdr-extra" href="business/" style="text-decoration:none;display:inline-flex;align-items:center;">💰 Business Tracker</a>
+    <button class="btn btn-ghost hdr-extra" onclick="logoutMurtApp()">🔒 Logout</button>
+    <button class="btn btn-ghost hdr-extra" onclick="openHistoryModal()">📁 Past Shows</button>
+    <button class="btn btn-ghost hdr-extra" id="backupBtn" onclick="openInvBackupModal()" title="Export or import a backup of your inventory">💾 Backup</button>
     <button class="btn btn-start" id="showBtn" onclick="handleShowBtn()">▶ Start Show</button>
   </div>
 </header>
@@ -908,6 +1045,11 @@
 <div class="main">
   <!-- LEFT: INVENTORY -->
   <div class="inventory-panel">
+    <div class="m-install-banner" id="mInstallBanner">
+      <span>📲 Use StreamPack like an app</span>
+      <button class="m-banner-how" onclick="openInstallGuide()">How</button>
+      <button class="m-banner-x" onclick="dismissInstallBanner()" aria-label="Hide">✕</button>
+    </div>
     <div class="panel-header">
       <span class="panel-title">Inventory</span>
       <div style="display:flex;align-items:center;gap:10px;">
@@ -975,6 +1117,43 @@
         <button class="btn btn-accent-outline" onclick="addItem()">Add to Inventory</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- PHONE: bottom bar (only shows on phone-size screens) -->
+<nav class="m-tabbar" id="mTabbar" aria-label="Sections">
+  <button class="m-tab active" data-view="inventory" onclick="setMobileView('inventory')"><span class="m-ico">📦</span><span>Inventory</span></button>
+  <button class="m-tab" data-view="sold" onclick="setMobileView('sold')"><span class="m-ico">🧾</span><span>Sold</span><span class="m-badge" id="mSoldBadge"></span></button>
+  <button class="m-tab" data-view="add" onclick="setMobileView('add')"><span class="m-ico">＋</span><span>Add</span></button>
+  <button class="m-tab" data-view="more" onclick="openMoreSheet()"><span class="m-ico">☰</span><span>More</span></button>
+</nav>
+
+<!-- PHONE: "More" menu -->
+<div class="modal-overlay" id="moreSheet">
+  <div class="modal m-more">
+    <div class="ie-head"><h2>More</h2><button class="ie-close" onclick="closeMoreSheet()" aria-label="Close">✕</button></div>
+    <div class="m-more-list">
+      <button class="m-more-item" onclick="closeMoreSheet(); openHistoryModal()"><span>📁</span>Past Shows</button>
+      <button class="m-more-item" onclick="closeMoreSheet(); openInvBackupModal()"><span>💾</span>Backup (export / import)</button>
+      <a class="m-more-item" href="business/"><span>💰</span>Business Tracker</a>
+      <button class="m-more-item" id="mGetAppItem" onclick="closeMoreSheet(); openInstallGuide()"><span>📲</span>Get the App</button>
+      <button class="m-more-item" onclick="closeMoreSheet(); logoutMurtApp()"><span>🔒</span>Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add to Home Screen steps -->
+<div class="modal-overlay" id="installGuide">
+  <div class="modal m-install">
+    <div class="ie-head"><h2>📲 Get the App</h2><button class="ie-close" onclick="closeInstallGuide()" aria-label="Close">✕</button></div>
+    <p class="sub">Put StreamPack on your home screen. It opens full-screen like a normal app. Takes 10 seconds:</p>
+    <ol class="m-steps">
+      <li><span class="m-step-n">1</span><div>In <b>Safari</b>, tap the <b>Share</b> button <span class="m-share-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span> (bottom of the screen).</div></li>
+      <li><span class="m-step-n">2</span><div>Scroll down and tap <b>Add to Home Screen</b>.</div></li>
+      <li><span class="m-step-n">3</span><div>Tap <b>Add</b>. Open StreamPack from your home screen and log in once.</div></li>
+    </ol>
+    <p class="m-install-note">Not in Safari? Open this page in Safari first. The app updates by itself whenever you upload a new version to GitHub.</p>
+    <div class="modal-actions"><button class="btn btn-start" onclick="closeInstallGuide()">Got it</button></div>
   </div>
 </div>
 
@@ -1217,9 +1396,33 @@ function getStreamPackState(){
   };
 }
 function writeLocalStreamPackState(){
-  localStorage.setItem('sp_inventory', JSON.stringify(inventory || []));
-  localStorage.setItem('sp_history', JSON.stringify(showHistory || []));
-  localStorage.setItem('sp_showNumber', String(showNumber || 1));
+  spSafeSet('sp_inventory', JSON.stringify(inventory || []));
+  spSafeSet('sp_history', JSON.stringify(showHistory || []));
+  spSafeSet('sp_showNumber', String(showNumber || 1));
+}
+// The cloud is the real copy; this device keeps a local copy plus a few safety
+// snapshots of past shows. If the browser's storage fills up, a local save used
+// to throw an error and stop whatever you were doing (like deleting a show).
+// Now it trims the oldest safety snapshots to make room, and if there's still
+// no room it skips the local copy and carries on.
+function spTrimLocalBackups(keep){
+  try {
+    Object.keys(localStorage).filter(function(k){ return k.indexOf('sp_history_before_delete_') === 0; })
+      .sort(function(a, b){ return Number(b.slice(25)) - Number(a.slice(25)); })
+      .slice(keep).forEach(function(k){ localStorage.removeItem(k); });
+  } catch(e) {}
+}
+function spSafeSet(key, value){
+  try { localStorage.setItem(key, value); return true; } catch(e) {}
+  spTrimLocalBackups(2);
+  try {
+    const b = JSON.parse(localStorage.getItem('sp_history_backups') || '[]');
+    localStorage.setItem('sp_history_backups', JSON.stringify(b.slice(0, 3)));
+  } catch(e) {}
+  try { localStorage.setItem(key, value); return true; } catch(e) {}
+  try { localStorage.removeItem('sp_history_backups'); spTrimLocalBackups(0); localStorage.setItem(key, value); return true; } catch(e) {}
+  console.warn('StreamPack: this device\'s storage is full, so "' + key + '" was not saved locally. The cloud copy is still saved.');
+  return false;
 }
 function applyStreamPackState(data){
   if(!data) return;
@@ -1527,14 +1730,16 @@ function spShowsCol(){
 function pushLocalHistoryBackup(){
   try {
     const backups = JSON.parse(localStorage.getItem('sp_history_backups') || '[]');
+    // Skip the copy if nothing changed since the last one (it used to add a copy on every page load).
+    if (backups[0] && JSON.stringify(backups[0].showHistory || []) === JSON.stringify(showHistory || [])) return;
     backups.unshift({ at: new Date().toISOString(), showHistory: showHistory || [] });
-    localStorage.setItem('sp_history_backups', JSON.stringify(backups.slice(0, 15)));
+    spSafeSet('sp_history_backups', JSON.stringify(backups.slice(0, 8)));
   } catch(e) {}
 }
 function saveHistory() {
   // Local snapshot safety net (kept even though shows are now synced individually).
   pushLocalHistoryBackup();
-  localStorage.setItem('sp_history', JSON.stringify(showHistory || []));
+  spSafeSet('sp_history', JSON.stringify(showHistory || []));
 }
 function saveShowRecordToCloud(record){
   const col = spShowsCol();
@@ -1548,14 +1753,32 @@ function saveShowRecordToCloud(record){
     spGoOfflineMode('🔴 Show sync failed (' + (err.code || 'error') + ') — working locally, retrying...');
   });
 }
+// A delete made while offline (or one the cloud rejected) is remembered on this
+// device and finished the next time it connects. Before, it only happened
+// locally, so the show came back as soon as the site synced again.
+function spPendingDeletes(){ try { return JSON.parse(localStorage.getItem('sp_pending_show_deletes') || '[]'); } catch(e) { return []; } }
+function spQueueShowDelete(id){
+  const p = spPendingDeletes();
+  if(p.indexOf(id) === -1){ p.push(id); spSafeSet('sp_pending_show_deletes', JSON.stringify(p)); }
+}
+function spFlushShowDeletes(){
+  const col = spShowsCol();
+  if(!col) return;
+  spPendingDeletes().forEach(function(id){
+    col.doc(String(id)).delete().then(function(){
+      spSafeSet('sp_pending_show_deletes', JSON.stringify(spPendingDeletes().filter(function(x){ return x !== id; })));
+    }).catch(function(err){ console.warn('StreamPack: delete of a past show still pending, will retry.', err); });
+  });
+}
 function deleteShowRecordFromCloud(id){
   const col = spShowsCol();
-  if(!col || !spCloudReady) return;
+  if(!col || !spCloudReady){ spQueueShowDelete(id); return; }
   spPendingLocalWrite = true;
   col.doc(String(id)).delete().then(function(){
     spPendingLocalWrite = false;
   }).catch(function(err){
     spPendingLocalWrite = false;
+    spQueueShowDelete(id);
     console.error('StreamPack show delete failed:', err);
     spGoOfflineMode('🔴 Sync failed (' + (err.code || 'error') + ') — working locally, retrying...');
   });
@@ -1989,7 +2212,7 @@ let newItemCategory = 'apparel';
 
 function switchCategoryTab(cat) {
   activeCategoryTab = cat;
-  localStorage.setItem('sp_active_category_tab', cat);
+  spSafeSet('sp_active_category_tab', cat);
   document.getElementById('catTabApparel').classList.toggle('active', cat === 'apparel');
   document.getElementById('catTabFragrance').classList.toggle('active', cat === 'fragrance');
   renderInventory();
@@ -2224,9 +2447,9 @@ function renderInventory() {
       ? `<div class="bundle-contents">${item.bundle.map(c => escHtml(c.name) + (c.size ? ' · ' + escHtml(c.size) : '')).join('<br>')}</div>` : '';
     let footBtn = '';
     if (!soldOut && isBundle) {
-      footBtn = `<button class="bundle-btn" onclick="event.stopPropagation(); unbundleItem(${item.id})" title="Split this bundle and put the items back in stock">↩ Unbundle</button>`;
+      footBtn = `<button class="bundle-btn" onclick="event.stopPropagation(); unbundleItem(${item.id})" title="Split this bundle and put the items back in stock">↩<span class="bb-label"> Unbundle</span></button>`;
     } else if (!soldOut && itemCategory(item) === 'fragrance') {
-      footBtn = `<button class="bundle-btn" onclick="event.stopPropagation(); openBundleModal(${item.id})" title="Bundle this with another fragrance">🎁 Bundle</button>`;
+      footBtn = `<button class="bundle-btn" onclick="event.stopPropagation(); openBundleModal(${item.id})" title="Bundle this with another fragrance">🎁<span class="bb-label"> Bundle</span></button>`;
     }
     return `<div class="item-card ${soldOut ? 'item-soldout' : ''}"
       data-id="${item.id}"
@@ -2393,6 +2616,7 @@ function reorderInventory(srcIdStr, targetIdStr) {
 function renderSoldList() {
   const el = document.getElementById('soldList');
   document.getElementById('soldCount').textContent = '#' + soldItems.length;
+  updateMobileBadge();
   if (soldItems.length === 0) {
     el.innerHTML = `<div class="sold-idle"><div class="icon">📦</div><p>${showActive ? 'Tap an item to mark it sold.' : 'Start the show, then tap items to mark them sold.'}</p></div>`;
     return;
@@ -2908,6 +3132,9 @@ function restoreBackup(i) {
 
   pushLocalHistoryBackup(); // keep a copy of what we're about to replace
   showHistory = JSON.parse(JSON.stringify(backup.showHistory || []));
+  const restoredIds = new Set(showHistory.map(function(r){ return r.id; }));
+  restoredIds.forEach(function(id){ spDeletedThisSession.delete(id); });
+  spSafeSet('sp_pending_show_deletes', JSON.stringify(spPendingDeletes().filter(function(id){ return !restoredIds.has(id); })));
   saveHistory();
 
   // Push every restored show back up to the cloud (each as its own doc) so the
@@ -2932,7 +3159,9 @@ function restoreBackup(i) {
 
 function deleteShow(id) {
   if(!confirm('Delete this past show? This cannot be undone.')) return;
-  localStorage.setItem('sp_history_before_delete_' + Date.now(), JSON.stringify(showHistory || []));
+  spTrimLocalBackups(4);   // keep the 5 most recent "before a delete" copies
+  spSafeSet('sp_history_before_delete_' + Date.now(), JSON.stringify(showHistory || []));
+  spDeletedThisSession.add(id);
   showHistory = showHistory.filter(r => r.id !== id);
   saveHistory();
   deleteShowRecordFromCloud(id);
@@ -3365,7 +3594,7 @@ async function submitLogin() {
       err.textContent = 'Wrong password.';
       return;
     }
-    localStorage.setItem(MURT_UNLOCK_KEY, '1');
+    spSafeSet(MURT_UNLOCK_KEY, '1');
     err.textContent = '';
     document.getElementById('loginScreen').style.display = 'none';
     setupStreamPackCloud();
@@ -3400,6 +3629,29 @@ function setupStreamPackCloud(){
   });
 }
 
+// Older versions kept every past show in one big list on the main record. Shows
+// are saved one per record now, but that old list was still read on every load,
+// so a show you'd deleted kept coming back. This copies anything that only exists
+// in the old list into its own record (so nothing is lost), saves a safety copy
+// of the old list, then empties it. Runs once; after that the old list is empty.
+let spLegacyToRetire = null;
+const spDeletedThisSession = new Set();   // past shows deleted on this device (so a sync can't bring them back)
+function spRetireLegacyHistory(){
+  const job = spLegacyToRetire; spLegacyToRetire = null;
+  if(!job || !spDocRef || !spShowsCol()) return;
+  const missing = job.legacy.filter(function(r){ return r && r.id != null && !job.cloudIds.has(r.id) && !spDeletedThisSession.has(r.id); });
+  spDb.collection('murtresell').doc('sp-legacy-shows-backup').set({ showHistory: job.legacy, savedAt: new Date().toISOString() }).then(function(){
+    if(!missing.length) return;
+    const batch = spDb.batch();
+    missing.forEach(function(r){ batch.set(spShowsCol().doc(String(r.id)), r); });
+    return batch.commit();
+  }).then(function(){
+    return spDocRef.set({ showHistory: [] }, { merge: true });
+  }).catch(function(err){
+    console.warn('StreamPack: could not tidy up the old show list yet; will try again next time.', err);
+  });
+}
+
 function connectStreamPackCloudDoc(){
   if(spUnsubscribe) spUnsubscribe();
   if(spShowsUnsubscribe) spShowsUnsubscribe();
@@ -3421,6 +3673,7 @@ function connectStreamPackCloudDoc(){
     const legacyHistory = (data && Array.isArray(data.showHistory)) ? data.showHistory : null;
     return spShowsCol().get().then(function(showsSnap){
       const cloudShows = showsSnap.docs.map(d => d.data());
+      spLegacyToRetire = (legacyHistory && legacyHistory.length) ? { legacy: legacyHistory, cloudIds: new Set(cloudShows.map(r => r.id)) } : null;
       if(legacyHistory && legacyHistory.length && cloudShows.length === 0){
         const batch = spDb.batch();
         legacyHistory.forEach(function(r){
@@ -3435,13 +3688,17 @@ function connectStreamPackCloudDoc(){
       return Object.values(byId);
     });
   }).then(function(mergedShows){
-    showHistory = (mergedShows || []).sort(function(a,b){ return (b.id||0) - (a.id||0); });
+    const pending = new Set(spPendingDeletes());
+    pending.forEach(function(id){ spDeletedThisSession.add(id); });
+    showHistory = (mergedShows || []).filter(function(r){ return !pending.has(r.id); }).sort(function(a,b){ return (b.id||0) - (a.id||0); });
     saveHistory();
     spCloudReady = true;
+    spFlushShowDeletes();
     document.getElementById('loginScreen').style.display = 'none';
     spSetSyncStatus('🟢 Synced');
     refreshStreamPackUi();
     spPhotosAfterLoad();
+    spRetireLegacyHistory();
 
     // Listen for changes to non-history fields (inventory, active show, etc).
     spUnsubscribe = spDocRef.onSnapshot(function(snap){
@@ -3462,6 +3719,7 @@ function connectStreamPackCloudDoc(){
       let changed = false;
       snap.docChanges().forEach(function(change){
         const rec = change.doc.data();
+        if(change.type !== 'removed' && rec && spDeletedThisSession.has(rec.id)) return;   // you deleted it; its cloud copy is on the way out
         const idx = showHistory.findIndex(r => r.id === rec.id);
         if(change.type === 'removed'){
           if(idx !== -1){ showHistory.splice(idx, 1); changed = true; }
@@ -3511,67 +3769,14 @@ function startPasswordGate(){
 }
 startPasswordGate();
 
-// ── IMPORT SATURDAY SHOW ──
-const SAT_SHOW_ID = 17199999991;
-if (!showHistory.find(r => r.id === SAT_SHOW_ID)) {
-  const satItems = [
-    {num:1,name:'Black Blue Galaxy Ape Tee',size:'L'},{num:2,name:'Black Blue Galaxy Ape Tee',size:'XL'},
-    {num:3,name:'Black Beige Ape Tee',size:'XXL'},{num:4,name:'Black Beige Ape Tee',size:'S'},
-    {num:5,name:'White Pink Ape Tee',size:'XXL'},{num:6,name:'White Pink Ape Tee',size:'L'},
-    {num:7,name:'White Pink Tree Bape Tee',size:'XL'},{num:8,name:'White Pink Tree Bape Tee',size:'S'},
-    {num:9,name:'White B&R Stussy Tee',size:'L'},{num:10,name:'Black Blue Camo Ape Tee (no/writing)',size:'S'},
-    {num:11,name:'Black Blue Camo Ape Tee (no/writing)',size:'M'},{num:12,name:'Black Beige Ape Tee',size:'S'},
-    {num:13,name:'Black Beige Ape Tee',size:'L'},{num:14,name:'Black Beige Ape Tee',size:'XL'},
-    {num:15,name:'Black Beige Ape Tee',size:'M'},{num:16,name:'Black Beige Ape Tee',size:'XXL'},
-    {num:17,name:'Black Red Ape Tee',size:'M'},{num:18,name:'White Fuzzy Dice Stussy Tee',size:'M'},
-    {num:19,name:'White Pink Ape Tee',size:'S'},{num:20,name:'White Pink Ape Tee',size:'L'},
-    {num:21,name:'White Pink Ape Tee',size:'XL'},{num:22,name:'White Pink Tree Bape Tee',size:'S'},
-    {num:23,name:'Black Beige Ape Tee',size:'M'},{num:24,name:'Black Beige Ape Tee',size:'M'},
-    {num:25,name:'Black Red Ape Tee',size:'M'},{num:26,name:'Black Red Ape Tee',size:'XL'},
-    {num:27,name:'Fuzzy Dice Black Stussy Tee',size:'M'},{num:28,name:'Cherries Black Stussy Tee',size:'M'},
-    {num:29,name:'Classic Ape Brown Logo Tee',size:'S'},{num:30,name:'Classic Ape Brown Logo Tee',size:'M'},
-    {num:31,name:'Black Blue Camo Ape Tee (no/writing)',size:'L'},{num:32,name:'White Pink Tree Bape Tee',size:'XL'},
-    {num:33,name:'White Pink Tree Bape Tee',size:'M'},{num:34,name:'Cherries Black Stussy Tee',size:'M'},
-    {num:35,name:'White Fuzzy Dice Stussy Tee',size:'S'},{num:36,name:'Black Purple Ape Tee',size:'S'},
-    {num:37,name:'Black Purple Ape Tee',size:'XL'},{num:38,name:'Black Blue Galaxy Ape Tee',size:'S'},
-    {num:39,name:'Black Blue Galaxy Ape Tee',size:'XL'},{num:40,name:'Black Blue Galaxy Ape Tee',size:'M'},
-    {num:41,name:'White Pink Tree Bape Tee',size:'S'},{num:42,name:'White Pink Tree Bape Tee',size:'S'},
-    {num:43,name:'White 8 Ball Stussy Tee',size:'L'},{num:44,name:'Black 8 Ball Stussy',size:'M'},
-    {num:45,name:'Black Beige Ape Tee',size:'S'},{num:46,name:'Black Beige Ape Tee',size:'XL'},
-    {num:47,name:'Black Beige Ape Tee',size:'XXL'},{num:48,name:'White Pink Tree Bape Tee',size:'XL'},
-    {num:49,name:'Black Red Ape Tee',size:'L'},{num:50,name:'Black Blue Galaxy Ape Tee',size:'XL'},
-    {num:51,name:'White Pink Tree Bape Tee',size:'XL'},{num:52,name:'White Pink Tree Bape Tee',size:'M'},
-    {num:53,name:'White Blue Camo Head Tee',size:'XL'},{num:54,name:'DO Shorts',size:'S'},
-    {num:55,name:'DO Shorts',size:'S'},{num:56,name:'DO Shorts',size:'S'},
-    {num:57,name:'White Pink Ape Tee',size:'S'},{num:58,name:'Black Blue camo Ape Tee (writing)',size:'M'},
-    {num:59,name:'Black Blue camo Ape Tee (writing)',size:'XL'},{num:60,name:'Black Blue camo Ape Tee (writing)',size:'XXL'},
-    {num:61,name:'Black Pink Ape Tee (writing)',size:'XL'},{num:62,name:'Black Pink Ape Tee (writing)',size:'XXL'},
-    {num:63,name:'Arachnid White Stussy Tee',size:'M'},{num:64,name:'White Pink Ape Tee',size:'M'},
-    {num:65,name:'White Pink Ape Tee',size:'XL'},{num:66,name:'White Pink Tree Bape Tee',size:'S'},
-    {num:67,name:'White Blue Camo Head Tee',size:'XL'},{num:68,name:'White Blue Camo Head Tee',size:'L'},
-    {num:69,name:'Black Purple Ape Tee',size:'XXL'},{num:70,name:'Black Purple Ape Tee',size:'M'},
-    {num:71,name:'Black Purple Ape Tee',size:'L'},{num:72,name:'Black Purple Ape Tee',size:'XL'},
-    {num:73,name:'Black Purple Ape Tee',size:'XXL'},{num:74,name:'White Pink Tree Bape Tee',size:'L'},
-    {num:75,name:'White Pink Tree Bape Tee',size:'XL'},{num:76,name:'Black Beige Ape Tee',size:'L'},
-    {num:77,name:'Black Beige Ape Tee',size:'M'},{num:78,name:'Black Beige Ape Tee',size:'XL'},
-    {num:79,name:'Black Beige Ape Tee',size:'XXL'},{num:80,name:'White Pink Tree Bape Tee',size:'M'},
-    {num:81,name:'White Pink Tree Bape Tee',size:'L'},{num:82,name:'White B&R Stussy Tee',size:'XL'},
-    {num:83,name:'White B&R Stussy Tee',size:'L'},{num:84,name:'Classic Ape Brown Logo Tee',size:'XL'},
-    {num:85,name:'Black Red Ape Tee',size:'XL'},{num:86,name:'Black Blue Galaxy Ape Tee',size:'XL'},
-    {num:87,name:'White Pink Ape Tee',size:'XXL'},{num:88,name:'Black Purple Ape Tee',size:'XXL'},
-    {num:89,name:'Black 8 Ball Stussy',size:'S'},{num:90,name:'Fuzzy Dice Black Stussy Tee',size:'S'}
-  ].map((s,i) => ({...s, id: SAT_SHOW_ID + i + 1, packed: false, canceled: false}));
-
-  showHistory.push({
-    id: SAT_SHOW_ID,
-    name: '6/27 Saturday Show',
-    number: 0,
-    startTime: new Date('2026-06-27T00:00:00').toISOString(),
-    endTime: new Date('2026-06-27T01:30:00').toISOString(),
-    items: satItems
-  });
-  saveHistory();
-}
+// Older versions kept a full copy of your past shows on this device for every
+// delete (never cleaned up) and on every page load. Trim those down once so the
+// device's storage doesn't fill up (that's what made deleting a show fail).
+spTrimLocalBackups(5);
+try {
+  const oldBackups = JSON.parse(localStorage.getItem('sp_history_backups') || '[]');
+  if (oldBackups.length > 8) spSafeSet('sp_history_backups', JSON.stringify(oldBackups.slice(0, 8)));
+} catch(e) {}
 // Migrate old history records that don't have packed/canceled fields yet
 showHistory.forEach(r => {
   (r.items || []).forEach(s => {
@@ -3627,7 +3832,7 @@ function orderDragFrame() {
   const d = orderDrag;
   if (!d) return;
   // keep the list scrolling when you hold near the top or bottom edge
-  const box = d.scroller ? d.scroller.getBoundingClientRect() : { top: 0, bottom: window.innerHeight };
+  const box = d.scroller ? d.scroller.getBoundingClientRect() : { top: 0, bottom: window.innerHeight - (document.getElementById('mTabbar').offsetHeight || 0) };
   const edge = 56, y = d.y;
   let step = 0;
   if (y < box.top + edge) step = -Math.ceil((box.top + edge - y) / 4);
@@ -3681,8 +3886,9 @@ document.addEventListener('pointercancel', e => { if (orderDrag && e.pointerId =
 
 // ── CLOSING POP-UPS ──
 // Tap/click beside a pop-up, press Esc, or use the ✕ at its top-right corner.
+// (On iPhone pop-ups fill the screen, so the ✕ is the way out.)
 const POPUP_CLOSERS = {
-  startModal: () => closeStartModal(),
+  moreSheet: () => closeMoreSheet(), installGuide: () => closeInstallGuide(), startModal: () => closeStartModal(),
   packingModal: () => closePackingModal(), tagBrandsModal: () => closeTagBrandsModal(), bulkAddModal: () => closeBulkAddModal(),
   swapModal: () => closeSwapModal(), bundleModal: () => closeBundleModal(), historyModal: () => closeHistoryModal(),
   backupModal: () => closeBackupModal(), historyDetailModal: () => closeDetailModal(), editModal: () => closeEditModal(),
@@ -3729,6 +3935,47 @@ document.querySelectorAll('.modal-overlay .ie-close:not(.modal-x)').forEach(x =>
   x.removeAttribute('onclick');
   x.addEventListener('click', () => closePopup(overlay, true));
 });
+
+// ── PHONE LAYOUT + HOME-SCREEN APP ──
+// On phone-size screens the page shows one section at a time, picked from the
+// bottom bar. On a laptop/iPad none of this shows and nothing changes.
+let mobileView = 'inventory';
+function setMobileView(view) {
+  mobileView = view;
+  document.body.classList.remove('m-v-inventory', 'm-v-sold', 'm-v-add');
+  document.body.classList.add('m-v-' + view);
+  document.querySelectorAll('#mTabbar .m-tab').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  if (view === 'add' && !document.getElementById('addForm').classList.contains('open')) toggleManage();
+  window.scrollTo(0, 0);
+}
+function updateMobileBadge() {
+  const b = document.getElementById('mSoldBadge');
+  if (!b) return;
+  b.textContent = soldItems.length;
+  b.classList.toggle('show', !!showActive && soldItems.length > 0);
+}
+function isStandaloneApp() {
+  return window.navigator.standalone === true ||
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+}
+function openMoreSheet() {
+  document.getElementById('mGetAppItem').style.display = isStandaloneApp() ? 'none' : '';
+  document.getElementById('moreSheet').classList.add('open');
+}
+function closeMoreSheet() { document.getElementById('moreSheet').classList.remove('open'); }
+function openInstallGuide() { document.getElementById('installGuide').classList.add('open'); }
+function closeInstallGuide() { document.getElementById('installGuide').classList.remove('open'); }
+function dismissInstallBanner() {
+  try { localStorage.setItem('sp_install_banner_hidden', '1'); } catch (e) {}
+  document.getElementById('mInstallBanner').classList.remove('show');
+}
+(function initPhoneLayout() {
+  setMobileView('inventory');
+  let hidden = false;
+  try { hidden = localStorage.getItem('sp_install_banner_hidden') === '1'; } catch (e) {}
+  // The "Get the App" banner only shows in the browser, never inside the installed app.
+  if (!isStandaloneApp() && !hidden) document.getElementById('mInstallBanner').classList.add('show');
+})();
 
 refreshStreamPackUi();
 </script>
