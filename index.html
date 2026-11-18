@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StreamPack</title>
+<link rel="icon" type="image/png" href="icons/icon-192.png">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -29,7 +30,7 @@
   }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Jost', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -60,7 +61,7 @@
     padding: 10px 20px;
     border-radius: var(--radius-sm);
     border: none;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -95,7 +96,7 @@
   .cat-tabs { display: flex; gap: 6px; margin-bottom: 14px; }
   .cat-tab {
     flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--text2);
-    border-radius: var(--radius-sm); padding: 10px 14px; font-family: 'DM Sans', sans-serif;
+    border-radius: var(--radius-sm); padding: 10px 14px; font-family: 'Jost', sans-serif;
     font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
   }
   .cat-tab:hover { border-color: var(--accent); color: var(--text); }
@@ -103,7 +104,7 @@
   .cat-select-row { display: flex; gap: 6px; }
   .cat-select-btn {
     flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--text2);
-    border-radius: var(--radius-sm); padding: 9px 10px; font-family: 'DM Sans', sans-serif;
+    border-radius: var(--radius-sm); padding: 9px 10px; font-family: 'Jost', sans-serif;
     font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s;
   }
   .cat-select-btn:hover { border-color: var(--accent); color: var(--text); }
@@ -115,18 +116,18 @@
   }
   .stock-filter button {
     background: var(--surface2); border: none; border-right: 1px solid var(--border); color: var(--text2);
-    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 0 14px; min-height: 40px;
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 600; padding: 0 14px; min-height: 40px;
     cursor: pointer; white-space: nowrap; transition: background 0.15s, color 0.15s;
   }
   .stock-filter button:last-child { border-right: none; }
   .stock-filter button:hover { color: var(--text); }
   .stock-filter button.active { background: var(--accent-dim); color: var(--accent); }
   .stock-filter button[data-f="out"].active { background: var(--red-dim); color: var(--red); }
-  .stock-filter .sf-n { font-family: 'DM Mono', monospace; font-size: 11.5px; font-weight: 500; opacity: 0.8; margin-left: 6px; }
+  .stock-filter .sf-n { font-family: 'Jost', sans-serif; font-size: 11.5px; font-weight: 500; opacity: 0.8; margin-left: 6px; }
   .search-bar input {
     flex: 1; background: var(--surface2); border: 1px solid var(--border);
     border-radius: var(--radius-sm); padding: 10px 14px; color: var(--text);
-    font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color 0.15s;
+    font-family: 'Jost', sans-serif; font-size: 14px; outline: none; transition: border-color 0.15s;
   }
   .search-bar input:focus { border-color: var(--accent); }
   .search-bar input::placeholder { color: var(--text3); }
@@ -140,7 +141,7 @@
   }
   .brand-header:first-child { padding-top: 2px; }
   .brand-count {
-    font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0;
+    font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0;
     text-transform: none; color: var(--text); white-space: nowrap;
   }
   .brand-count.zero { color: var(--text3); }
@@ -154,7 +155,7 @@
     font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text2);
   }
   .stock-summary .st-total { display: flex; align-items: baseline; gap: 8px; }
-  .stock-summary .st-num { font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500; color: var(--accent); line-height: 1; }
+  .stock-summary .st-num { font-family: 'Jost', sans-serif; font-size: 26px; font-weight: 500; color: var(--accent); line-height: 1; }
   .stock-summary .st-unit { font-size: 14px; color: var(--text); font-weight: 600; }
   .stock-summary .st-side { font-size: 12px; color: var(--text2); text-align: right; }
   .item-card {
@@ -169,10 +170,10 @@
   .item-name { font-size: 14px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; }
   .item-size { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
   .item-inspired { font-size: 11px; color: var(--accent); font-style: italic; margin-bottom: 4px; }
-  .item-cost { font-size: 11.5px; color: var(--text2); font-family: 'DM Sans', sans-serif; margin-bottom: 12px; }
+  .item-cost { font-size: 11.5px; color: var(--text2); font-family: 'Jost', sans-serif; margin-bottom: 12px; }
   .item-qty {
     display: inline-flex; align-items: center; gap: 5px;
-    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500;
     background: var(--accent-dim); color: var(--accent); padding: 4px 10px; border-radius: 20px;
   }
   .item-qty.low { background: var(--yellow-dim); color: var(--yellow); }
@@ -251,7 +252,7 @@
   .sold-panel { flex: 1; padding: 20px; overflow-y: auto; border-bottom: 1px solid var(--border); }
   .sold-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
   .counter-badge {
-    font-family: 'DM Mono', monospace; font-size: 13px;
+    font-family: 'Jost', sans-serif; font-size: 13px;
     background: var(--accent-dim); color: var(--accent); padding: 3px 10px; border-radius: 20px; font-weight: 500;
   }
   .sold-list { display: flex; flex-direction: column; gap: 6px; }
@@ -262,7 +263,7 @@
   }
   @keyframes slideIn { from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)} }
   .sold-num {
-    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500;
     color: var(--accent); min-width: 28px; background: var(--accent-dim);
     padding: 2px 6px; border-radius: 4px; text-align: center;
   }
@@ -289,7 +290,7 @@
   .item-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; }
   .bundle-btn {
     background: transparent; border: 1px solid var(--border); color: var(--text2);
-    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 600;
+    font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600;
     padding: 4px 9px; border-radius: 20px; cursor: pointer; transition: all 0.15s; white-space: nowrap;
   }
   .bundle-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
@@ -323,13 +324,13 @@
   .ie-field label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text2); }
   .ie-input {
     width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; padding: 9px 11px; outline: none;
+    color: var(--text); font-family: 'Jost', sans-serif; font-size: 14px; padding: 9px 11px; outline: none;
   }
   .ie-input:focus { border-color: var(--accent); }
   .ie-cat { display: flex; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
   .ie-cat button {
     flex: 1; background: var(--surface2); border: none; color: var(--text2); padding: 9px 6px; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+    font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 600;
   }
   .ie-cat button.active { background: var(--accent-dim); color: var(--accent); }
   .ie-stock {
@@ -343,7 +344,7 @@
   .ie-stepper .qty-btn { width: 36px; height: 36px; font-size: 18px; }
   .ie-qty-input {
     width: 64px; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
-    color: var(--text); font-family: 'DM Mono', monospace; font-size: 16px; padding: 7px 4px; outline: none;
+    color: var(--text); font-family: 'Jost', sans-serif; font-size: 16px; padding: 7px 4px; outline: none;
   }
   .ie-qty-input:focus { border-color: var(--accent); }
   .ie-bundle {
@@ -365,7 +366,7 @@
   .bundle-contents { font-size: 11px; color: var(--text2); margin-bottom: 8px; line-height: 1.4; }
   .bundle-search {
     width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 10px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 10px 14px; color: var(--text); font-family: 'Jost', sans-serif; font-size: 13px;
     outline: none; margin-bottom: 10px;
   }
   .bundle-search:focus { border-color: var(--accent); }
@@ -389,7 +390,7 @@
     color: var(--text); font-size: 15px; cursor: pointer;
   }
   .bundle-stepper button:hover { border-color: var(--accent); color: var(--accent); }
-  .bundle-stepper span { font-family: 'DM Mono', monospace; min-width: 18px; text-align: center; }
+  .bundle-stepper span { font-family: 'Jost', sans-serif; min-width: 18px; text-align: center; }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .sold-idle { text-align: center; padding: 40px 16px; color: var(--text3); font-size: 13px; }
   .sold-idle .icon { font-size: 28px; margin-bottom: 8px; }
@@ -398,7 +399,7 @@
   .manage-panel { padding: 16px 20px; background: var(--surface); border-top: 1px solid var(--border); }
   .manage-toggle {
     width: 100%; text-align: left; display: flex; align-items: center; justify-content: space-between;
-    background: none; border: none; color: var(--text2); font-family: 'DM Sans', sans-serif;
+    background: none; border: none; color: var(--text2); font-family: 'Jost', sans-serif;
     font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; padding: 0;
   }
   .manage-toggle.open { margin-bottom: 14px; color: var(--accent); }
@@ -408,7 +409,7 @@
   .add-form.open { display: flex; }
   .add-form input {
     background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 9px 12px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 9px 12px; color: var(--text); font-family: 'Jost', sans-serif; font-size: 13px;
     outline: none; transition: border-color 0.15s; width: 100%;
   }
   .add-form input:focus { border-color: var(--accent); }
@@ -438,7 +439,7 @@
   .start-field label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); margin-bottom: 8px; }
   .start-field input {
     width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 12px 14px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px;
+    padding: 12px 14px; color: var(--text); font-family: 'Jost', sans-serif; font-size: 15px;
     outline: none; transition: border-color 0.15s;
   }
   .start-field input:focus { border-color: var(--accent); }
@@ -449,7 +450,7 @@
   .show-meta { font-size: 12px; color: var(--text2); margin-top: 4px; margin-bottom: 20px; }
   .packing-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
   .packing-row {
-    display: grid; grid-template-columns: 26px 44px 1fr 88px;
+    display: grid; grid-template-columns: 26px 64px 1fr 88px;
     align-items: center; gap: 10px; padding: 10px 14px;
     background: var(--surface2); border-radius: var(--radius-sm); border: 1px solid var(--border);
     transition: all 0.15s;
@@ -470,12 +471,12 @@
   }
   .pack-checkbox:hover { border-color: var(--accent); }
   .pack-checkbox.checked { background: var(--accent); border-color: var(--accent); color: #000; }
-  .packing-num { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--accent); text-align: center; }
+  .packing-num { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; color: var(--accent); text-align: center; }
   .packing-row.is-canceled .packing-num { color: var(--red); }
   .packing-row.is-canceled .packing-name { text-decoration: line-through; }
   .packing-name { font-size: 14px; font-weight: 600; }
   .packing-size { font-size: 11px; color: var(--text2); }
-  .packing-label { font-size: 11px; color: var(--text3); text-align: right; font-family: 'DM Mono', monospace; }
+  .packing-label { font-size: 11px; color: var(--text3); text-align: right; font-family: 'Jost', sans-serif; }
   .cancel-x {
     background: none; border: none; color: var(--text3); cursor: pointer;
     font-size: 13px; padding: 4px 6px; border-radius: 4px; transition: color 0.1s; flex-shrink: 0;
@@ -492,7 +493,7 @@
     background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
     padding: 10px 12px; text-align: center;
   }
-  .pack-stat .num { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 600; }
+  .pack-stat .num { font-family: 'Jost', sans-serif; font-size: 20px; font-weight: 600; }
   .pack-stat .label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
   .pack-stat.packed .num { color: var(--accent); }
   .pack-stat.canceled .num { color: var(--red); }
@@ -522,7 +523,7 @@
   .edit-name-input {
     display: block; width: 100%; max-width: 320px; margin: 0 0 2px -7px;
     background: transparent; border: 1px dashed var(--border); border-radius: 6px;
-    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+    color: var(--text); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 600;
     padding: 4px 26px 4px 6px; outline: none; transition: border-color 0.15s, background 0.15s;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20h9'/%3E%3Cpath d='M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 8px center;
@@ -537,7 +538,7 @@
   .edit-inline-fields { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
   .edit-cost-input, .edit-inspired-input {
     background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
-    color: var(--text); font-size: 11.5px; padding: 4px 6px; font-family: 'DM Sans', sans-serif;
+    color: var(--text); font-size: 11.5px; padding: 4px 6px; font-family: 'Jost', sans-serif;
   }
   .edit-cost-input { width: 70px; }
   .edit-inspired-input { width: 140px; }
@@ -549,7 +550,7 @@
     display: flex; align-items: center; justify-content: center; transition: all 0.1s;
   }
   .qty-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .qty-display { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; min-width: 24px; text-align: center; }
+  .qty-display { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; min-width: 24px; text-align: center; }
   .delete-btn { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 16px; padding: 4px 6px; border-radius: 4px; transition: color 0.1s; }
   .delete-btn:hover { color: var(--red); }
 
@@ -567,6 +568,43 @@
     padding: 10px 18px; font-size: 13px; font-weight: 500; z-index: 999; transition: transform 0.25s ease; pointer-events: none;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== DRAG TO SWITCH ORDERS ===== */
+  .order-grip {
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    width: 22px; height: 30px; margin-right: 2px; color: var(--text3); font-size: 15px; line-height: 1;
+    cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; border-radius: 6px;
+  }
+  .order-grip:hover { color: var(--accent); background: var(--accent-dim); }
+  .packing-num { display: flex; align-items: center; justify-content: flex-start; gap: 2px; }
+  body.order-drag-active, body.order-drag-active * { user-select: none !important; -webkit-user-select: none !important; cursor: grabbing !important; }
+  .order-dragging { opacity: 0.35; }
+  .order-drop-target { outline: 2px dashed var(--accent); outline-offset: 2px; }
+  .order-ghost {
+    position: fixed; z-index: 10000; pointer-events: none; margin: 0 !important;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.55); border-color: var(--accent) !important; transform: scale(1.02);
+  }
+
+  /* ===== SWAP PICKER TABS ===== */
+  .swap-tabs { display: flex; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 10px; }
+  .swap-tab {
+    flex: 1; background: var(--surface2); border: none; border-right: 1px solid var(--border); color: var(--text2);
+    font-family: inherit; font-size: 13px; font-weight: 600; padding: 10px 8px; cursor: pointer;
+  }
+  .swap-tab:last-child { border-right: none; }
+  .swap-tab.active { background: var(--accent-dim); color: var(--accent); }
+  .swap-tab-n { margin-left: 6px; font-size: 11.5px; opacity: 0.8; font-variant-numeric: tabular-nums; }
+
+  /* ===== ✕ ON EVERY POP-UP ===== */
+  .modal { position: relative; }
+  .modal-x { float: right; position: sticky; top: 0; margin: -6px -8px 8px 12px; z-index: 5; background: var(--surface); }
+
+  /* ===== PHOTOS: taller, whole picture shown (no cropping) ===== */
+  .item-photo, .item-photo-placeholder { height: 150px; }
+  .item-photo { object-fit: contain; background: #fff; }
+  .bundle-photos { height: 150px; background: #fff; }
+  .bundle-photos img { object-fit: contain; background: #fff; }
+  .swap-list-item .item-photo, .ie-photo-row .item-photo, .edit-photo-thumb { object-fit: contain; background: #fff; }
 
   @media print {
     body { background: white; color: black; }
@@ -622,7 +660,7 @@
     border-radius: var(--radius-sm);
     padding: 13px 16px;
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 15px;
     outline: none;
     transition: border-color 0.15s;
@@ -645,7 +683,7 @@
     color: #000;
     border: none;
     border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
@@ -653,6 +691,158 @@
   }
   .login-btn:hover { background: #00ffb3; }
   .login-btn:active { transform: scale(0.98); }
+  /* =====================================================================
+     STEADYSUPPLY THEME — black & gold from the SteadySupply logo.
+     Cinzel (engraved capitals) for the name and brand plates,
+     Jost for everything you read and tap.
+     ===================================================================== */
+  :root {
+    --bg: #000000;
+    --surface: #15110b;
+    --surface2: #1e1912;
+    --border: #33291c;
+    --accent: #d9b36e;
+    --accent-dim: rgba(217,179,110,0.12);
+    --accent-glow: rgba(217,179,110,0.28);
+    --gold-hi: #f7e3ae;
+    --gold: linear-gradient(135deg, #f7e3ae 0%, #d9b36e 34%, #a77b3f 68%, #edcf8e 100%);
+    --ink-on-gold: #1b1307;
+    --red: #e5484d;
+    --red-dim: rgba(229,72,77,0.13);
+    --yellow: #ff9b4a;
+    --yellow-dim: rgba(255,155,74,0.13);
+    --text: #f3ead8;
+    --text2: #a99b82;
+    --text3: #6f6553;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+  body { background: #000; color: var(--text); font-variant-numeric: tabular-nums; }
+  body::before {
+    /* warm light falling from the top, like a lit display counter */
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background: radial-gradient(ellipse 70% 45% at 50% -8%, rgba(217,179,110,0.11), transparent 70%);
+  }
+  ::selection { background: rgba(217,179,110,0.35); color: #fff; }
+  ::-webkit-scrollbar-thumb { background: #3a2f20; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* header */
+  header { background: rgba(8,6,3,0.94); border-bottom: none; }
+  header::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(217,179,110,0.18) 18%, rgba(217,179,110,0.85) 46%, transparent 48.4%, transparent 51.6%, rgba(217,179,110,0.85) 54%, rgba(217,179,110,0.18) 82%, transparent 100%);
+  }
+  .hdr-rule {
+    position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); z-index: 1;
+    display: flex; align-items: center; justify-content: center; width: 24px; height: 16px; color: #d9b36e;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; letter-spacing: 0; }
+  .logo-mark { height: 60px; width: auto; margin: -14px 0 -10px; filter: drop-shadow(0 0 12px rgba(217,179,110,0.25)); }
+  .logo .logo-word {
+    font-family: 'Cinzel', 'Trajan Pro', Georgia, serif; font-weight: 600; font-size: 23px; letter-spacing: 0.09em;
+    background: var(--gold); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .show-status { font-weight: 500; }
+
+  /* buttons */
+  .btn { font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 0.01em; border-radius: var(--radius-sm); }
+  .btn-start, .login-btn {
+    background: var(--gold); color: var(--ink-on-gold); border: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 16px rgba(217,179,110,0.22);
+  }
+  .btn-start:hover, .login-btn:hover { background: var(--gold); filter: brightness(1.08); }
+  .btn-ghost { background: rgba(255,255,255,0.02); border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover { border-color: rgba(217,179,110,0.6); color: var(--gold-hi); }
+  .btn-accent-outline { background: rgba(217,179,110,0.07); border: 1px solid rgba(217,179,110,0.5); color: var(--gold-hi); }
+  .btn-accent-outline:hover { background: rgba(217,179,110,0.14); }
+  .btn-end { background: rgba(229,72,77,0.1); }
+
+  /* inputs */
+  input[type="text"], input[type="number"], input[type="password"], input[type="date"], select, textarea {
+    background-color: #0c0905; border-color: var(--border);
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent) !important; box-shadow: 0 0 0 3px rgba(217,179,110,0.14); }
+
+  /* panel titles: engraved, not shouty */
+  .panel-title { font-family: 'Cinzel', Georgia, serif; font-size: 15px; font-weight: 600; letter-spacing: 0.1em; text-transform: none; color: var(--text); }
+  .cat-tab { background: transparent; border-color: var(--border); color: var(--text2); font-family: 'Jost', sans-serif; }
+  .cat-tab:hover { border-color: rgba(217,179,110,0.6); color: var(--text); }
+  .cat-tab.active { background: rgba(217,179,110,0.1); border-color: var(--accent); color: var(--gold-hi); box-shadow: inset 0 0 0 1px rgba(217,179,110,0.25); }
+
+  .stock-summary { background: linear-gradient(180deg, #17120b, #110d08); border-color: var(--border); border-left: 2px solid var(--accent); }
+  .stock-summary .st-label { text-transform: none; letter-spacing: 0.02em; font-size: 12.5px; font-weight: 500; color: var(--text2); }
+  .stock-summary .st-num { font-family: 'Jost', sans-serif; font-weight: 600; color: var(--gold-hi); }
+
+  /* brand headings: engraved plates on a gold hairline */
+  .brand-header {
+    font-family: 'Cinzel', Georgia, serif; font-size: 15px; font-weight: 600; letter-spacing: 0.12em; text-transform: none;
+    color: var(--gold-hi); border-bottom: none; padding: 24px 2px 9px; position: relative;
+  }
+  .brand-header::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: linear-gradient(90deg, rgba(217,179,110,0.75), rgba(217,179,110,0.18) 55%, transparent);
+  }
+  .brand-count { font-family: 'Jost', sans-serif; font-size: 12.5px; font-weight: 500; color: var(--text2); }
+
+  /* item cards: lacquered tiles with a white display mat for the bottle photo */
+  .item-card {
+    background: linear-gradient(180deg, #19140d 0%, #110d08 100%); border: 1px solid #2c2318; border-radius: var(--radius);
+  }
+  .item-card:hover { border-color: rgba(217,179,110,0.65); background: linear-gradient(180deg, #1d170f 0%, #130f09 100%); box-shadow: 0 10px 28px rgba(0,0,0,0.55); }
+  .item-photo { border-radius: 10px; border: none; background: #fff; }
+  .item-photo-placeholder { border-radius: 10px; background: #0c0905; border-color: #2c2318; color: var(--text3); }
+  .bundle-photos { border-radius: 10px; border: none; }
+  .item-name { font-weight: 600; letter-spacing: 0.005em; }
+  .item-inspired { color: var(--accent); }
+  .item-qty { font-family: 'Jost', sans-serif; font-weight: 600; background: rgba(217,179,110,0.12); color: var(--gold-hi); }
+  .item-soldout .item-photo, .item-soldout .bundle-photos { filter: grayscale(1) brightness(0.8); }
+  /* hover hints sit on the white photo mat, so they get a dark pill */
+  .sell-hint, .drag-handle {
+    top: 20px; z-index: 2; background: rgba(12,9,5,0.86); border: 1px solid rgba(217,179,110,0.35);
+    border-radius: 6px; color: var(--gold-hi); line-height: 1;
+  }
+  .drag-handle { right: 20px; padding: 4px 6px 5px; font-size: 12px; }
+  .sell-hint { right: 48px; padding: 5px 8px; font-family: 'Jost', sans-serif; letter-spacing: 0.08em; }
+  .item-card:hover .sell-hint { color: var(--gold-hi); }  .bundle-btn, .card-edit-btn { border-color: #3a2f20; }
+
+  /* the one moment of motion: a gold sweep across the card you just sold */
+  .item-card.just-sold { overflow: hidden; }
+  .item-card.just-sold::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+    background: linear-gradient(105deg, transparent 30%, rgba(247,227,174,0.55) 48%, rgba(217,179,110,0.25) 55%, transparent 70%);
+    transform: translateX(-100%); animation: goldSweep 0.85s ease-out forwards;
+  }
+  @keyframes goldSweep { to { transform: translateX(100%); } }
+
+  /* sold list + packing */
+  .sold-item, .packing-row { background: #15110b; border-color: #2c2318; }
+  .sold-num { background: rgba(217,179,110,0.12); color: var(--gold-hi); font-family: 'Jost', sans-serif; font-weight: 600; }
+  .packing-num { font-family: 'Jost', sans-serif; font-weight: 600; color: var(--gold-hi); }
+  .pack-checkbox.checked, .bundle-check { color: var(--ink-on-gold); }
+
+  /* pop-ups */
+  .modal-overlay { background: rgba(0,0,0,0.82); }
+  .modal { background: linear-gradient(180deg, #16110b 0%, #0e0b07 100%); border: 1px solid #33291c; border-radius: 18px; box-shadow: 0 30px 80px rgba(0,0,0,0.7); }
+  .modal h2 { font-family: 'Cinzel', Georgia, serif; font-weight: 600; letter-spacing: 0.06em; color: var(--gold-hi); }
+  .ie-close { background: #0c0905; }
+  .toast { background: #1e1912; border: 1px solid rgba(217,179,110,0.45); color: var(--text); box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    opacity: 0; visibility: hidden; transition: transform 0.25s ease, opacity 0.2s ease, visibility 0s linear 0.25s; }
+  .toast.show { opacity: 1; visibility: visible; transition: transform 0.25s ease, opacity 0.2s ease; }
+
+  /* login */
+  #loginScreen { background: radial-gradient(ellipse 80% 60% at 50% 30%, #1a140b 0%, #000 70%); }
+  .login-box { background: rgba(14,11,7,0.9); border: 1px solid #33291c; border-radius: 20px; padding: 28px 32px 34px; }
+  .login-mark { width: 100%; max-width: 250px; height: auto; display: block; margin: 0 auto 14px; }
+  .login-logo {
+    font-family: 'Cinzel', Georgia, serif; font-size: 24px; font-weight: 600; letter-spacing: 0.12em; margin-bottom: 6px;
+    background: var(--gold); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .login-box input { background: #0c0905; letter-spacing: 1px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .item-card.just-sold::after { animation: none; display: none; }
+  }
 </style>
 </head>
 <body>
@@ -660,8 +850,9 @@
 <!-- LOGIN SCREEN -->
 <div id="loginScreen">
   <div class="login-box">
-    <div class="login-logo">Stream<span>Pack</span></div>
-    <div class="login-sub">Enter password to unlock and sync</div>
+    <img class="login-mark" src="brand/steadysupply-logo.png" alt="SteadySupply Fragrances">
+    <div class="login-logo">StreamPack</div>
+    <div class="login-sub">Enter the password to unlock and sync</div>
     <input type="password" id="loginInput" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter') submitLogin()">
     <div class="login-error" id="loginError"></div>
     <button class="login-btn" onclick="submitLogin()">Unlock</button>
@@ -670,7 +861,8 @@
 
 <!-- HEADER -->
 <header>
-  <div class="logo">Stream<span>Pack</span></div>
+  <div class="logo"><img class="logo-mark" src="brand/ss-monogram.png" alt=""><span class="logo-word">StreamPack</span></div>
+  <span class="hdr-rule" aria-hidden="true"><svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" stroke-width="1"><rect x="4.5" y="0.6" width="3" height="2.4" rx="0.4"/><path d="M7.5 1.6h2.2"/><path d="M5.2 3v1.4M6.8 3v1.4"/><rect x="1.6" y="4.4" width="8.8" height="11" rx="1.3"/></svg></span>
   <div class="show-status">
     <div class="dot" id="liveDot"></div>
     <span id="showLabel">No Show Active</span>
@@ -840,6 +1032,10 @@ Coral T-Shirt, 4, Medium, 6.00" style="width:100%;background:var(--surface2);bor
     <h2>⇄ Swap Item</h2>
     <p class="sub">Pick what this should become instead. The original goes back into inventory automatically.</p>
     <input type="text" id="swapSearchInput" placeholder="Search items..." oninput="renderSwapList()" style="margin-bottom:10px;">
+    <div class="swap-tabs" role="tablist">
+      <button class="swap-tab" data-cat="fragrance" onclick="setSwapCategory('fragrance')">🧴 Fragrances<span class="swap-tab-n" id="swapCountFragrance"></span></button>
+      <button class="swap-tab" data-cat="apparel" onclick="setSwapCategory('apparel')">👕 Apparel<span class="swap-tab-n" id="swapCountApparel"></span></button>
+    </div>
     <div class="history-list" id="swapList"></div>
     <div class="modal-actions">
       <button class="btn btn-ghost" onclick="closeSwapModal()">Cancel</button>
@@ -904,7 +1100,7 @@ Coral T-Shirt, 4, Medium, 6.00" style="width:100%;background:var(--surface2);bor
 
 <!-- EDIT INVENTORY MODAL -->
 <!-- EDIT ONE ITEM (opened from the ✏️ on its card) -->
-<div class="modal-overlay" id="editModal" onclick="if(event.target===this) closeEditModal()">
+<div class="modal-overlay" id="editModal">
   <div class="modal item-editor">
     <div class="ie-head">
       <h2>✏️ Edit Item</h2>
@@ -919,7 +1115,7 @@ Coral T-Shirt, 4, Medium, 6.00" style="width:100%;background:var(--surface2);bor
 </div>
 
 <!-- BACKUP (export / import) -->
-<div class="modal-overlay" id="invBackupModal" onclick="if(event.target===this) closeInvBackupModal()">
+<div class="modal-overlay" id="invBackupModal">
   <div class="modal">
     <h2>💾 Backup</h2>
     <p class="sub">Save a copy of your inventory, or load one back in.</p>
@@ -1456,6 +1652,14 @@ function sellItem(id, opts) {
   renderInventory();
   renderSoldList();
   showToast('🛍️ #' + orderNum + ' — ' + item.name + (item.size ? ' / ' + item.size : ''));
+  flashSoldCard(id);
+}
+// Gold shimmer across the card you just sold (skipped if the phone asks for reduced motion).
+function flashSoldCard(id) {
+  const card = document.querySelector('.item-card[data-id="' + id + '"]');
+  if (!card) return;
+  card.classList.remove('just-sold'); void card.offsetWidth; card.classList.add('just-sold');
+  setTimeout(() => card.classList.remove('just-sold'), 900);
 }
 
 function undoSale(saleId) {
@@ -1720,8 +1924,10 @@ function compressImageFile(file, maxDim, quality) {
         else if (h > maxDim) { w = Math.round(w * (maxDim / h)); h = maxDim; }
         const canvas = document.createElement('canvas');
         canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        resolve(canvas.toDataURL('image/jpeg', quality || 0.6));
+        const g = canvas.getContext('2d');
+        g.fillStyle = '#fff'; g.fillRect(0, 0, w, h);   // see-through PNGs get a white background, not black
+        g.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality || 0.82));
       };
       img.src = e.target.result;
     };
@@ -1733,7 +1939,7 @@ let newPhotoDataUrl = null;
 function previewNewPhoto(event) {
   const file = event.target.files[0];
   if (!file) return;
-  compressImageFile(file, 300, 0.6).then(function(dataUrl) {
+  compressImageFile(file, 800, 0.82).then(function(dataUrl) {
     newPhotoDataUrl = dataUrl;
     const preview = document.getElementById('newPhotoPreview');
     preview.src = dataUrl;
@@ -2166,7 +2372,8 @@ function renderSoldList() {
   }
   const reversed = [...soldItems].reverse();
   el.innerHTML = `<div class="sold-list">${reversed.map(s => `
-    <div class="sold-item">
+    <div class="sold-item" data-sale-id="${s.id}" data-list="live">
+      <span class="order-grip" title="Drag onto another order to switch them" aria-label="Drag to switch order #${s.num}">⠿</span>
       <span class="sold-num">#${s.num}</span>
       <div class="sold-info">
         <div class="sold-name">${escHtml(s.name)}</div>
@@ -2212,9 +2419,9 @@ function renderPackingList() {
       <div class="pack-stat canceled"><div class="num">${canceledCount}</div><div class="label">Canceled</div></div>
     </div>
   ` + record.items.map(s => `
-      <div class="packing-row ${s.canceled ? 'is-canceled' : s.packed ? 'is-packed' : ''}">
+      <div class="packing-row ${s.canceled ? 'is-canceled' : s.packed ? 'is-packed' : ''}" data-sale-id="${s.id}" data-list="packing">
         <div class="pack-checkbox ${s.packed && !s.canceled ? 'checked' : ''}" onclick="togglePacked(${s.id})">${s.packed && !s.canceled ? '✓' : ''}</div>
-        <div class="packing-num">#${s.num}</div>
+        <div class="packing-num"><span class="order-grip" title="Drag onto another order to switch them" aria-label="Drag to switch order #${s.num}">⠿</span>#${s.num}</div>
         <div>
           <div class="packing-name">${escHtml(s.name)}</div>
           <div class="packing-size">${escHtml(s.size) || 'No size'}</div>
@@ -2425,10 +2632,17 @@ let swapContext = 'live'; // 'live' | 'packing' | 'detail'
 function swapSourceList() {
   return swapContext === 'live' ? soldItems : (currentPackingRecord ? currentPackingRecord.items : []);
 }
+let swapCategory = 'fragrance';
 function openSwapModal(saleId, context) {
   swapTargetSaleId = saleId;
   swapContext = context || 'live';
   document.getElementById('swapSearchInput').value = '';
+  // Open on the same kind of item that was sold (fragrance → Fragrances tab).
+  const sale = swapSourceList().find(s => s.id === saleId);
+  const soldItem = sale ? findItemForSale(sale) : null;
+  swapCategory = sale && sale.bundle ? 'fragrance'
+    : soldItem ? itemCategory(soldItem)
+    : activeCategoryTab || 'fragrance';
   renderSwapList();
   document.getElementById('swapModal').classList.add('open');
 }
@@ -2436,13 +2650,29 @@ function closeSwapModal() {
   document.getElementById('swapModal').classList.remove('open');
   swapTargetSaleId = null;
 }
+function setSwapCategory(cat) {
+  swapCategory = cat === 'apparel' ? 'apparel' : 'fragrance';
+  renderSwapList();
+  document.getElementById('swapList').scrollTop = 0;
+}
 function renderSwapList() {
   const el = document.getElementById('swapList');
   const current = swapSourceList().find(s => s.id === swapTargetSaleId);
   const q = (document.getElementById('swapSearchInput').value || '').toLowerCase();
-  const options = inventory.filter(i => (i.name + ' ' + i.size).toLowerCase().includes(q));
+  const matches = inventory.filter(i => (String(i.name || '') + ' ' + String(i.size || '')).toLowerCase().includes(q));
+  const nFrag = matches.filter(i => itemCategory(i) === 'fragrance').length;
+  const nApp = matches.length - nFrag;
+  document.getElementById('swapCountFragrance').textContent = nFrag;
+  document.getElementById('swapCountApparel').textContent = nApp;
+  document.querySelectorAll('#swapModal .swap-tab').forEach(b => b.classList.toggle('active', b.dataset.cat === swapCategory));
+  const options = matches.filter(i => itemCategory(i) === swapCategory);
   if (options.length === 0) {
-    el.innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px">No matching items.</div>';
+    const other = swapCategory === 'fragrance' ? 'apparel' : 'fragrance';
+    const nOther = other === 'apparel' ? nApp : nFrag;
+    el.innerHTML = '<div style="text-align:center;color:var(--text3);padding:24px">' +
+      (q ? 'No matches in ' + (swapCategory === 'fragrance' ? 'Fragrances' : 'Apparel') + '.' : 'Nothing here yet.') +
+      (nOther ? `<br><button class="btn btn-ghost" style="margin-top:12px;" onclick="setSwapCategory('${other}')">Show ${nOther} in ${other === 'apparel' ? 'Apparel' : 'Fragrances'}</button>` : '') +
+      '</div>';
     return;
   }
   el.innerHTML = options.map(item => {
@@ -2745,9 +2975,9 @@ function renderDetailList() {
       <div class="pack-stat canceled"><div class="num">${canceledCount}</div><div class="label">Canceled</div></div>
     </div>
   ` + record.items.map(s => `
-      <div class="packing-row ${s.canceled ? 'is-canceled' : s.packed ? 'is-packed' : ''}">
+      <div class="packing-row ${s.canceled ? 'is-canceled' : s.packed ? 'is-packed' : ''}" data-sale-id="${s.id}" data-list="detail">
         <div class="pack-checkbox ${s.packed && !s.canceled ? 'checked' : ''}" onclick="toggleDetailPacked(${s.id})">${s.packed && !s.canceled ? '✓' : ''}</div>
-        <div class="packing-num">#${s.num}</div>
+        <div class="packing-num"><span class="order-grip" title="Drag onto another order to switch them" aria-label="Drag to switch order #${s.num}">⠿</span>#${s.num}</div>
         <div>
           <div class="packing-name">${escHtml(s.name)}</div>
           <div class="packing-size">${escHtml(s.size) || 'No size'}</div>
@@ -2983,7 +3213,7 @@ function toggleItemCategory(id) {
 function handleEditPhotoChange(id, event) {
   const file = event.target.files[0];
   if (!file) return;
-  compressImageFile(file, 300, 0.6).then(function(dataUrl) {
+  compressImageFile(file, 800, 0.82).then(function(dataUrl) {
     const item = inventory.find(i => i.id === id);
     if (!item) return;
     setItemPhoto(item, dataUrl);
@@ -3325,6 +3555,154 @@ showHistory.forEach(r => {
 saveHistory();
 
 // Initial local render while Firebase signs in. Cloud data replaces this after login.
+// ── DRAG TO SWITCH ORDERS ──
+// Grab the ⠿ on an order (live Sold list, packing list, or a past show) and
+// drop it on another order: the two trade places. The order numbers stay put,
+// so dropping #40 on #38 makes that item #38 (and the old #38 becomes #40).
+// Works with a mouse and with a finger on iPhone.
+let orderDrag = null;
+function orderListFor(kind) {
+  if (kind === 'live') return soldItems;
+  return currentPackingRecord ? currentPackingRecord.items : null;
+}
+function switchOrders(kind, idA, idB) {
+  const list = orderListFor(kind);
+  if (!list) return;
+  const a = list.findIndex(s => s.id === idA), b = list.findIndex(s => s.id === idB);
+  if (a < 0 || b < 0 || a === b) return;
+  const numA = list[a].num, numB = list[b].num;
+  const moved = list[a];
+  list[a] = list[b]; list[b] = moved;
+  list[a].num = numA; list[b].num = numB;
+  if (kind === 'live') { saveStreamPackState(); renderSoldList(); }
+  else { persistCurrentRecord(); if (kind === 'packing') renderPackingList(); else renderDetailList(); }
+  showToast('↕️ Switched #' + numA + ' and #' + numB);
+}
+function orderScroller(el) {
+  for (let n = el.parentElement; n && n !== document.body; n = n.parentElement) {
+    const oy = getComputedStyle(n).overflowY;
+    if ((oy === 'auto' || oy === 'scroll') && n.scrollHeight > n.clientHeight + 2) return n;
+  }
+  return null;   // the page itself scrolls
+}
+function endOrderDrag(commit) {
+  const d = orderDrag;
+  if (!d) return;
+  orderDrag = null;
+  cancelAnimationFrame(d.raf);
+  if (d.ghost) d.ghost.remove();
+  d.row.classList.remove('order-dragging');
+  document.querySelectorAll('.order-drop-target').forEach(r => r.classList.remove('order-drop-target'));
+  document.body.classList.remove('order-drag-active');
+  if (commit && d.active && d.over) switchOrders(d.kind, d.id, Number(d.over.dataset.saleId));
+}
+function orderDragFrame() {
+  const d = orderDrag;
+  if (!d) return;
+  // keep the list scrolling when you hold near the top or bottom edge
+  const box = d.scroller ? d.scroller.getBoundingClientRect() : { top: 0, bottom: window.innerHeight };
+  const edge = 56, y = d.y;
+  let step = 0;
+  if (y < box.top + edge) step = -Math.ceil((box.top + edge - y) / 4);
+  else if (y > box.bottom - edge) step = Math.ceil((y - (box.bottom - edge)) / 4);
+  if (step && d.active) { if (d.scroller) d.scroller.scrollTop += step; else window.scrollBy(0, step); }
+  // which order is under your finger?
+  const el = document.elementFromPoint(d.x, d.y);
+  const row = el && el.closest('[data-sale-id]');
+  const over = row && row !== d.row && row.dataset.list === d.kind ? row : null;
+  if (over !== d.over) {
+    if (d.over) d.over.classList.remove('order-drop-target');
+    if (over) over.classList.add('order-drop-target');
+    d.over = over;
+  }
+  d.raf = requestAnimationFrame(orderDragFrame);
+}
+document.addEventListener('pointerdown', e => {
+  const grip = e.target.closest && e.target.closest('.order-grip');
+  if (!grip || (e.pointerType === 'mouse' && e.button !== 0)) return;
+  const row = grip.closest('[data-sale-id]');
+  if (!row) return;
+  e.preventDefault();
+  endOrderDrag(false);
+  const r = row.getBoundingClientRect();
+  orderDrag = { kind: row.dataset.list, id: Number(row.dataset.saleId), row, grip, pointerId: e.pointerId,
+    x: e.clientX, y: e.clientY, startY: e.clientY, offsetY: e.clientY - r.top, left: r.left, width: r.width,
+    active: false, over: null, ghost: null, scroller: orderScroller(row), raf: 0 };
+  try { grip.setPointerCapture(e.pointerId); } catch (err) {}
+  orderDrag.raf = requestAnimationFrame(orderDragFrame);
+});
+document.addEventListener('pointermove', e => {
+  const d = orderDrag;
+  if (!d || e.pointerId !== d.pointerId) return;
+  d.x = e.clientX; d.y = e.clientY;
+  if (!d.active && Math.abs(d.y - d.startY) > 4) {
+    d.active = true;
+    d.ghost = d.row.cloneNode(true);
+    d.ghost.classList.add('order-ghost');
+    d.ghost.removeAttribute('data-sale-id');
+    d.ghost.style.left = d.left + 'px';
+    d.ghost.style.width = d.width + 'px';
+    document.body.appendChild(d.ghost);
+    d.row.classList.add('order-dragging');
+    document.body.classList.add('order-drag-active');
+  }
+  if (d.ghost) d.ghost.style.top = (d.y - d.offsetY) + 'px';
+  e.preventDefault();
+}, { passive: false });
+document.addEventListener('pointerup', e => { if (orderDrag && e.pointerId === orderDrag.pointerId) endOrderDrag(true); });
+document.addEventListener('pointercancel', e => { if (orderDrag && e.pointerId === orderDrag.pointerId) endOrderDrag(false); });
+
+// ── CLOSING POP-UPS ──
+// Tap/click beside a pop-up, press Esc, or use the ✕ at its top-right corner.
+const POPUP_CLOSERS = {
+  startModal: () => closeStartModal(),
+  packingModal: () => closePackingModal(), tagBrandsModal: () => closeTagBrandsModal(), bulkAddModal: () => closeBulkAddModal(),
+  swapModal: () => closeSwapModal(), bundleModal: () => closeBundleModal(), historyModal: () => closeHistoryModal(),
+  backupModal: () => closeBackupModal(), historyDetailModal: () => closeDetailModal(), editModal: () => closeEditModal(),
+  invBackupModal: () => closeInvBackupModal()
+};
+function closePopup(overlay, explicit) {
+  // Bulk Add: don't throw away a typed-in list on a stray tap — use ✕ or Cancel.
+  if (!explicit && overlay.id === 'bulkAddModal' && document.getElementById('bulkAddText').value.trim()) {
+    showToast('Tap ✕ or Cancel to discard your list');
+    return;
+  }
+  const fn = POPUP_CLOSERS[overlay.id];
+  if (fn) fn(); else overlay.classList.remove('open');
+}
+let popupPressTarget = null;
+document.addEventListener('pointerdown', e => { popupPressTarget = e.target; }, true);
+document.addEventListener('click', e => {
+  const t = e.target;
+  // only when the press AND the release both landed on the dark area (not a drag that ended outside)
+  if (t.classList && t.classList.contains('modal-overlay') && t.classList.contains('open') && popupPressTarget === t) closePopup(t, false);
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || e.defaultPrevented) return;
+  const open = [...document.querySelectorAll('.modal-overlay.open')];
+  if (!open.length) return;
+  open.sort((a, b) => (parseInt(getComputedStyle(a).zIndex, 10) || 0) - (parseInt(getComputedStyle(b).zIndex, 10) || 0));
+  closePopup(open[open.length - 1], false);
+});
+// Every pop-up gets an ✕ in its top-right corner (the newer ones already have one).
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  const box = overlay.querySelector('.modal');
+  if (!box || box.querySelector('.ie-close')) return;
+  const x = document.createElement('button');
+  x.type = 'button';
+  x.className = 'ie-close modal-x';
+  x.setAttribute('aria-label', 'Close');
+  x.textContent = '✕';
+  x.addEventListener('click', () => closePopup(overlay, true));
+  box.insertBefore(x, box.firstChild);
+});
+// The newer pop-ups' own ✕ buttons go through the same path.
+document.querySelectorAll('.modal-overlay .ie-close:not(.modal-x)').forEach(x => {
+  const overlay = x.closest('.modal-overlay');
+  x.removeAttribute('onclick');
+  x.addEventListener('click', () => closePopup(overlay, true));
+});
+
 refreshStreamPackUi();
 </script>
 </body>
